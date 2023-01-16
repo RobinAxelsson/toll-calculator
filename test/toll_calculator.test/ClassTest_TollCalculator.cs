@@ -30,7 +30,7 @@ public class ClassTest_TollCalculatorTests
     }
 
     [Fact]
-    public void Calculate_for_car_and_date()
+    public void Calculate_for_car_and_friday_09_00()
     {
         // Arrange
         var car = new Car();
@@ -42,6 +42,28 @@ public class ClassTest_TollCalculatorTests
 
 
         // Assert
-        result.Should().BeGreaterThan(0);
+        result.Should().Be(8);
+    }
+
+    [Fact]
+    public void Calculate_for_car_and_friday_08_30()
+    {
+        // Arrange & Act
+        var result = CalculateCarTollFridayOfMay2013AtTime(9,0,0);
+
+
+        // Assert
+        result.Should().Be(8);
+    }
+
+    private static int CalculateCarTollFridayOfMay2013AtTime(int hour, int minute, int second)
+    {
+        // Arrange
+        var car = new Car();
+        var sut = new TollCalculator();
+        var fridayMay3rd = new DateTime(2013, 5, 3, hour, minute, second);
+
+        // Act
+        return sut.GetTollFee(fridayMay3rd, car);
     }
 }
